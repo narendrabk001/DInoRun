@@ -20,32 +20,32 @@ struct Cloud {
 
 // Function to draw mountains in background
 void drawMountains(int groundY) {
-    // Mountain 1 - Left side (large)
+    // Mountain 1
     setcolor(DARKGRAY);
     setfillstyle(SOLID_FILL, DARKGRAY);
     int mountain1[] = {0, groundY, 120, 200, 240, groundY, 0, groundY};
     fillpoly(4, mountain1);
     
-    // Mountain 2 - Right side
+    // Mountain 2
     setcolor(LIGHTGRAY);
     setfillstyle(SOLID_FILL, LIGHTGRAY);
     int mountain2[] = {400, groundY, 520, 220, 640, groundY, 400, groundY};
     fillpoly(4, mountain2);
     
-    // Mountain 3 - Center background
+    // Mountain 3
     setcolor(DARKGRAY);
     setfillstyle(SOLID_FILL, DARKGRAY);
     int mountain3[] = {250, groundY, 380, 250, 510, groundY, 250, groundY};
     fillpoly(4, mountain3);
     
-    // Small mountain in front
+    // Mountain 4
     setcolor(LIGHTGRAY);
     setfillstyle(SOLID_FILL, LIGHTGRAY);
     int mountain4[] = {150, groundY, 220, 290, 290, groundY, 150, groundY};
     fillpoly(4, mountain4);
 }
 
-// Function to draw a single cloud
+// draw a single cloud
 void drawCloud(int x, int y) {
     setcolor(WHITE);
     setfillstyle(SOLID_FILL, WHITE);
@@ -76,11 +76,10 @@ void updateClouds(Cloud clouds[], int numClouds) {
 
 // Function to draw improved red dinosaur shape
 void drawDino(int x, int y, bool isJumping, int groundY) {
-    // Set dino color to RED
     setcolor(RED);
     setfillstyle(SOLID_FILL, RED);
     
-    // Main body (oval shape)
+    // Main body
     fillellipse(x + 20, y + 20, 18, 12);
     
     // Neck and head
@@ -113,7 +112,7 @@ void drawDino(int x, int y, bool isJumping, int groundY) {
         bar(x + 32, y + 22, x + 36, y + 28);
     }
     
-    // Tail (curved appearance)
+    // Tail 
     int tailPoints[] = {x - 15, y + 15, x - 5, y + 10, x, y + 18, x - 15, y + 15};
     fillpoly(4, tailPoints);
     
@@ -127,7 +126,7 @@ void drawDino(int x, int y, bool isJumping, int groundY) {
     setfillstyle(SOLID_FILL, BLACK);
     fillellipse(x + 48, y - 2, 1, 1);
     
-    // Mouth (smile)
+    // Mouth 
     setcolor(BLACK);
     arc(x + 45, y + 3, 0, 180, 4);
     
@@ -138,50 +137,50 @@ void drawDino(int x, int y, bool isJumping, int groundY) {
     line(x + 25, y + 5, x + 30, y);
 }
 
-// Function to draw improved cactus shapes
+// Function to draw cactus shapes
 void drawCactus(int x, int height, int type, int groundY) {
     setcolor(GREEN);
     setfillstyle(SOLID_FILL, GREEN);
     
     switch(type) {
-        case 0: // Single tall cactus
-            // Main stem
+        case 0: // cactus 1 (small)
+          
             bar(x, groundY - height, x + 12, groundY);
-            // Left arm
+           
             bar(x - 8, groundY - height + 15, x, groundY - height + 25);
-            // Right arm
+            
             bar(x + 12, groundY - height + 20, x + 20, groundY - height + 30);
             break;
             
         case 1: // Double cactus (medium)
-            // Left stem
+           
             bar(x - 5, groundY - (height - 10), x, groundY);
-            // Right stem (taller)
+           
             bar(x + 5, groundY - height, x + 15, groundY);
-            // Arm on right stem
+           
             bar(x + 15, groundY - height + 25, x + 22, groundY - height + 35);
             break;
             
         case 2: // Triple cactus (small group)
-            // Left small cactus
+       
             bar(x - 8, groundY - (height - 15), x - 3, groundY);
-            // Middle main cactus
+           
             bar(x + 2, groundY - height, x + 10, groundY);
-            // Right small cactus
+           
             bar(x + 13, groundY - (height - 20), x + 18, groundY);
-            // Arm on middle cactus
+           
             bar(x + 10, groundY - height + 18, x + 15, groundY - height + 25);
             break;
     }
     
-    // Add cactus segments/details
+    // Add cactus segments
     setcolor(DARKGRAY);
     switch(type) {
         case 0:
             for (int j = 8; j < height; j += 10) {
                 line(x, groundY - j, x + 12, groundY - j);
             }
-            // Arm segments
+          
             line(x - 8, groundY - height + 20, x, groundY - height + 20);
             line(x + 12, groundY - height + 25, x + 20, groundY - height + 25);
             break;
@@ -211,13 +210,13 @@ void drawCactus(int x, int height, int type, int groundY) {
 
 // Function to initialize game state
 void initializeGame(int &dinoY, bool &isJumping, int &jumpVelocity, Cactus cacti[], int &cactusTimer, int &score, Cloud clouds[], int numClouds) {
-    dinoY = 310; // groundY - 40
+    dinoY = 310; 
     isJumping = false;
     jumpVelocity = 0;
     score = 0;
     cactusTimer = 0;
     
-    // Reset all cacti
+    // Reset all cactus
     for (int i = 0; i < 3; i++) {
         cacti[i].active = false;
     }
@@ -230,7 +229,7 @@ void initializeGame(int &dinoY, bool &isJumping, int &jumpVelocity, Cactus cacti
     }
 }
 
-// Function to draw game over screen with replay option
+// draw game over screen with replay option
 bool drawGameOverScreen(int score) {
     cleardevice();
     
@@ -265,10 +264,10 @@ bool drawGameOverScreen(int score) {
         if (kbhit()) {
             char key = getch();
             if (key == 'r' || key == 'R') {
-                return true; // Replay
+                return true; 
             }
-            else if (key == 27) { // ESC
-                return false; // Exit
+            else if (key == 27) { 
+                return false; 
             }
         }
         delay(40);
@@ -282,8 +281,8 @@ int main() {
     srand(time(NULL));
     
     int groundY = 350;
-    int dinoX = 100;  // Fixed dinosaur position
-    int dinoY = groundY - 40;  // Starting position
+    int dinoX = 100;  
+    int dinoY = groundY - 40;  
     
     // Dinosaur variables
     bool isJumping = false;
@@ -312,28 +311,28 @@ int main() {
         initializeGame(dinoY, isJumping, jumpVelocity, cacti, cactusTimer, score, clouds, NUM_CLOUDS);
         gameRunning = true;
         
-        // Set background color to BLUE for sky
+        // Set background color
         setbkcolor(BLUE);
 
         while (gameRunning) {
             cleardevice();
             
-            // Draw sky background - BLUE
+            // Draw sky
             setcolor(BLUE);
             setfillstyle(SOLID_FILL, BLUE);
             bar(0, 0, 640, groundY);
             
-            // Draw mountains in background (attached to ground)
+            // Draw mountains
             drawMountains(groundY);
             
-            // Update and draw moving clouds
+            //draw moving clouds
             updateClouds(clouds, NUM_CLOUDS);
             
-            // Draw horizontal ground line (white for contrast)
+            // ground Line
             setcolor(WHITE);
             line(0, groundY, 640, groundY);
             
-            // Fill ground area with GREEN color
+            // Green Ground.
             setcolor(GREEN);
             setfillstyle(SOLID_FILL, GREEN);
             bar(0, groundY + 1, 640, 480);
@@ -342,30 +341,26 @@ int main() {
             if (kbhit()) {
                 char key = getch();
                 if (key == ' ' && !isJumping) {
-                    // Start jump
                     jumpVelocity = jumpStrength;
                     isJumping = true;
                 }
-                else if (key == 27) {  // ESC key to exit
+                else if (key == 27) { 
                     gameRunning = false;
                     replay = false;
                 }
             }
-            
-            // Update jumping physics
+             //jumping physics
             if (isJumping) {
                 dinoY += jumpVelocity;
                 jumpVelocity += gravity;
-                
-                // Check if landed back on ground
+                 // Check if landed back on ground
                 if (dinoY >= groundY - 40) {
                     dinoY = groundY - 40;
                     isJumping = false;
                     jumpVelocity = 0;
                 }
             }
-            
-            // Spawn moving cacti
+              // Spawn moving cactus
             cactusTimer++;
             if (cactusTimer > 60) {
                 for (int i = 0; i < 3; i++) {
@@ -379,28 +374,21 @@ int main() {
                 }
                 cactusTimer = 0;
             }
-            
-            // Update and draw moving cacti
+            // draw moving cactus
             for (int i = 0; i < 3; i++) {
                 if (cacti[i].active) {
                     // Move cactus from right to left
                     cacti[i].x -= 6;
-                    
-                    // Draw improved cactus
                     drawCactus(cacti[i].x, cacti[i].height, cacti[i].type, groundY);
-                    
-                    // Remove cactus when off screen and add to score
                     if (cacti[i].x < -30) {
                         cacti[i].active = false;
                         score += 1;
                     }
-                    
-                    // Check collision with dinosaur
+                     //collision with dinosaur
                     if (cacti[i].active) {
                         // Different collision boxes based on cactus type
                         int cactusLeft, cactusRight;
-                        
-                        switch(cacti[i].type) {
+                         switch(cacti[i].type) {
                             case 0: // Single cactus
                                 cactusLeft = cacti[i].x - 8;
                                 cactusRight = cacti[i].x + 20;
@@ -414,23 +402,18 @@ int main() {
                                 cactusRight = cacti[i].x + 18;
                                 break;
                         }
-                        
                         // Only check collision if dinosaur is not high enough to jump over
                         if (cactusLeft < dinoX + 40 && cactusRight > dinoX) {
                             // Check if dinosaur is jumping high enough to clear the cactus
                             if (!isJumping || dinoY > groundY - cacti[i].height - 40) {
-                                // Collision detected - end this game session
+                                // Collision detected 
                                 gameRunning = false;
                             }
                         }
                     }
                 }
             }
-            
-            // Draw single red dinosaur
-            drawDino(dinoX, dinoY, isJumping, groundY);
-            
-            // Ground details (dark green lines on green ground for contrast)
+             drawDino(dinoX, dinoY, isJumping, groundY);
             setcolor(DARKGRAY);
             for (int i = 0; i < 640; i += 50) {
                 line(i, groundY + 3, i + 25, groundY + 3);
@@ -441,17 +424,13 @@ int main() {
             char scoreStr[30];
             sprintf(scoreStr, "Score: %d", score);
             outtextxy(500, 20, scoreStr);
-            
             // Jump status
             if (isJumping) {
                 outtextxy(500, 40, "Status: JUMPING");
             } else {
                 outtextxy(500, 40, "Status: Running");
             }
-            
-         
-            
-            // Instructions
+             // Instructions
             setcolor(WHITE);
             outtextxy(10, 10, "Press SPACE to jump over Cactus");
             outtextxy(10, 30, "Press ESC to exit");
@@ -464,7 +443,6 @@ int main() {
             replay = drawGameOverScreen(score);
         }
     }
-    
     closegraph();
     return 0;
 }
